@@ -953,3 +953,22 @@ Bring back the Round-15 second-person copy on SessionEntry and add the
 gate as a documented exemption to the declarative-voice rule, keeping
 the Round-19 tinted-chip legibility fix.
 ```
+
+## Round 21 — Remove Scenario 0 (tutorial)
+
+**Rationale.** User request: remove Scenario 0 from the Guided Scenarios tab.
+
+**Key diffs.**
+- `components/guided-scenarios.tsx`: deleted the `s0-tutorial` entry (`GUIDED_SCENARIOS` array) in full — its 11 steps (`s0-intro` through `s0-summary`). No other file referenced `s0-tutorial` or any `s0-*` step id, so removal is clean. `GUIDED_SCENARIOS.length` reads (progress counter, next/previous-scenario navigation, "of N scenarios completed") are all dynamic and now reflect 9 scenarios instead of 10 automatically.
+- `lib/scenario-engine.ts`'s separate `PREDEFINED_SCENARIOS` (used by the Evaluation tab) is unrelated and untouched.
+
+**Files:** `components/guided-scenarios.tsx`, `CHANGES.md`
+
+**Commit:**
+```
+feat: remove the Scenario 0 tutorial from Guided Scenarios
+
+Delete the s0-tutorial entry and its 11 steps entirely; no other file
+referenced it. Scenario counts and next/previous navigation are
+derived from GUIDED_SCENARIOS.length, so they adjust automatically.
+```

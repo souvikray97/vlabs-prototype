@@ -1,0 +1,316 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  /* Section outlines, button outlines and sub-section dividers. Kept a touch darker
+     than the near-white default so the few remaining borders stay visible on bright /
+     4K screens, but lightened from the previous 0.83 now that most inner borders are
+     gone (structure comes from background + spacing instead). Literal value only —
+     must never reference another token (would create a circular @theme chain). */
+  --border: oklch(0.89 0 0);
+  --input: oklch(0.89 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Custom OS Lab color scheme based on templates */
+  --os-primary-blue: oklch(0.6 0.15 240);
+  --os-primary-green: oklch(0.7 0.15 140);
+  --os-accent-blue: oklch(0.8 0.1 220);
+  --os-success-green: oklch(0.65 0.15 130);
+  --os-warning-yellow: oklch(0.8 0.15 80);
+  --os-error-red: oklch(0.6 0.2 20);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Large-display breakpoints (2xl = 1536px is built in). These add variants for
+     1080p-class, 1440p-class and 4K-class widths so layout can keep adapting past xl. */
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2560px;
+  --breakpoint-5xl: 3840px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Root-font scaling for very large screens. Because the UI is built almost entirely on
+   rem-based sizing (text, padding, gaps, max-widths), bumping the root size scales the
+   whole interface proportionally so it doesn't read as tiny on 4K–8K panels viewed at
+   low OS scaling. Standard screens (< 1920px) are untouched. */
+@media (min-width: 1920px) {
+  html { font-size: 17px; }
+}
+@media (min-width: 2560px) {
+  html { font-size: 18px; }
+}
+@media (min-width: 3840px) {
+  html { font-size: 21px; }
+}
+@media (min-width: 5120px) {
+  html { font-size: 24px; }
+}
+@media (min-width: 7680px) {
+  html { font-size: 28px; }
+}
+
+/* ── Shared typography hierarchy ────────────────────────────────────────────
+   One class per role so the same role is always the same size/weight in every
+   view. Largest → smallest: panel title › sub-section heading › item label. */
+.panel-title {
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75rem;
+  font-weight: 800;
+}
+@media (min-width: 640px) {
+  .panel-title {
+    font-size: 1.25rem; /* sm:text-xl */
+    line-height: 1.75rem;
+  }
+}
+
+/* Weight ladder widened (800 / 700 / 500) so the three tiers separate by weight
+   without changing any font-size — sizes drive the meticulously tuned fixed-height
+   layout, so hierarchy comes from weight + colour instead (Refactoring-UI item 6). */
+.subsection-title {
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+@media (min-width: 640px) {
+  .subsection-title {
+    font-size: 1rem; /* sm:text-base */
+    line-height: 1.5rem;
+  }
+}
+
+.item-label {
+  font-size: 0.75rem; /* text-xs */
+  line-height: 1rem;
+  font-weight: 500;
+}
+@media (min-width: 640px) {
+  .item-label {
+    font-size: 0.875rem; /* sm:text-sm */
+    line-height: 1.25rem;
+  }
+}
+
+/* First-process onboarding hint: a ghost "P0" chip floats from the real Ready lane up to
+   the real CPU lane and back, demonstrating drag-to-move. The --hx/--hy custom properties
+   are the live lane-centre coordinates measured in process-scheduling-simulation.tsx; the
+   -50% recentres the chip on each coordinate. */
+@keyframes drag-hint {
+  0%, 12%   { transform: translate(calc(var(--hx0) - 50%), calc(var(--hy0) - 50%)) scale(1); }
+  22%       { transform: translate(calc(var(--hx0) - 50%), calc(var(--hy0) - 50%)) scale(1.15); }
+  60%       { transform: translate(calc(var(--hx1) - 50%), calc(var(--hy1) - 50%)) scale(1.15); }
+  70%, 88%  { transform: translate(calc(var(--hx1) - 50%), calc(var(--hy1) - 50%)) scale(1); }
+  100%      { transform: translate(calc(var(--hx0) - 50%), calc(var(--hy0) - 50%)) scale(1); }
+}
+.drag-hint-ghost {
+  transform: translate(calc(var(--hx0) - 50%), calc(var(--hy0) - 50%));
+  animation: drag-hint 2.8s ease-in-out infinite;
+}
+
+/* Chip colour tracks the transition: source-state colour while picked up / dragging, then
+   flips to the target-state colour on drop (~70%), returning as it loops back. Synced to the
+   2.8s motion above. */
+@keyframes drag-hint-color {
+  0%, 60%  { background-color: var(--hc0); }
+  70%, 88% { background-color: var(--hc1); }
+  100%     { background-color: var(--hc0); }
+}
+.drag-hint-chip-color {
+  background-color: var(--hc0);
+  animation: drag-hint-color 2.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .drag-hint-ghost {
+    animation: none;
+  }
+  .drag-hint-chip-color {
+    animation: none;
+  }
+}
+
+/* Guided-tour click cue: a pulsing ring drawing the eye to the button or event the user
+   should click next. Applied directly to the real control via the .tour-target class. */
+@keyframes tour-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(2, 132, 199, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}
+.tour-target {
+  animation: tour-pulse 1.4s ease-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stronger pulse for the control buttons only — the blue "info" buttons washed out the
+   softer ring, so this uses a larger, more opaque ring plus a constant outline. */
+@keyframes tour-pulse-strong {
+  0%   { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.85); }
+  70%  { box-shadow: 0 0 0 13px rgba(2, 132, 199, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}
+.tour-target-btn {
+  animation: tour-pulse-strong 1.3s ease-out infinite;
+  position: relative;
+  z-index: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-target,
+  .tour-target-btn {
+    animation: none;
+    outline: 2px solid rgba(2, 132, 199, 0.7);
+    outline-offset: 2px;
+  }
+}
+
+/* Custom styles for OS Lab components */
+.process-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.process-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.simulation-border {
+  border: 2px solid var(--os-primary-green);
+  border-radius: 8px;
+}
+
+.alert-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: rgb(153, 27, 27);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.process-state-ready {
+  background-color: var(--os-primary-blue);
+}
+.process-state-running {
+  background-color: var(--os-success-green);
+}
+.process-state-io {
+  background-color: var(--os-warning-yellow);
+}
+.process-state-terminated {
+  background-color: rgb(107, 114, 128);
+}

@@ -742,9 +742,7 @@ export function LessonsTab({
                   Process Life Cycle — Course
                 </CardTitle>
                 <p className="text-muted-foreground">
-                  <strong className="text-foreground">Aim:</strong> how an operating system manages a process
-                  through its life cycle — from creation, through running and waiting, to termination — explored
-                  hands-on in a live simulator.
+                  <strong className="text-foreground">Aim:</strong> To Manage the different states of a process and understand transitions through interactive experimentation through a simulation.
                 </p>
               </div>
               {modePills}

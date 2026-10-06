@@ -972,3 +972,22 @@ Delete the s0-tutorial entry and its 11 steps entirely; no other file
 referenced it. Scenario counts and next/previous navigation are
 derived from GUIDED_SCENARIOS.length, so they adjust automatically.
 ```
+
+## Round 22 — Tour popup re-places on re-layout
+
+**Rationale.** Bug: after a tab switch the tour instruction popup could land in the wrong place (seen at the bottom of the page on the Sandbox). The anchor effect only re-ran `place()` on its deps and on window `resize`/`scroll`, so a layout shift after the effect ran (tab content becoming visible, the equal-height cap, content growth) left the popup at the anchor's stale coordinates. Backported from the fix in another experiment's copy of the tour renderer.
+
+**Key diffs.**
+- `components/process-scheduling-simulation.tsx` (popup anchor `useLayoutEffect`): a `ResizeObserver` on `document.body` and on the anchor element calls `place()` whenever the page or the target re-lays out; disconnected on cleanup.
+- `place()` hides the popup when the anchor measures 0×0 (not laid out, e.g. its tab is hidden) instead of positioning it against an empty rect; the anchor observer re-places it once it becomes visible.
+
+**Files:** `components/process-scheduling-simulation.tsx`, `CLAUDE.md`, `CHANGES.md`
+
+**Commit:**
+```
+fix: re-place tour popup when the page re-lays out
+
+Observe document.body and the anchor with a ResizeObserver so the
+popup follows layout shifts (e.g. after a tab switch), and hide it
+while the anchor is not laid out instead of pinning it to a stale rect.
+```

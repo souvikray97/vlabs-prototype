@@ -651,6 +651,11 @@ function ProcessSchedulingSimulation({ onEngineReady, onStateChange, shortcutsEn
         return
       }
       const r = el.getBoundingClientRect()
+      // Anchor not laid out (e.g. its tab is hidden) — hide rather than pin to a stale spot.
+      if (r.width === 0 && r.height === 0) {
+        setTourPopup(null)
+        return
+      }
       const width = Math.min(240, window.innerWidth - 16)
       // Prefer the right of the anchor; flip left, then clamp to the viewport on both axes.
       // caret points back at the target: on the popup's left edge when it sits to the right,
@@ -666,9 +671,16 @@ function ProcessSchedulingSimulation({ onEngineReady, onStateChange, shortcutsEn
       setTourPopup({ top, left, width, bottom: null, caret })
     }
     place()
+    // Re-place on re-layout too (tab switch, equal-height cap, content growth) — window
+    // resize/scroll alone miss these and leave the popup where the anchor used to be.
+    const ro = new ResizeObserver(place)
+    ro.observe(document.body)
+    const el = anchorEl()
+    if (el) ro.observe(el)
     window.addEventListener("resize", place)
     window.addEventListener("scroll", place, true)
     return () => {
+      ro.disconnect()
       window.removeEventListener("resize", place)
       window.removeEventListener("scroll", place, true)
     }
